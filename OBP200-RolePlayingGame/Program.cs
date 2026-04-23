@@ -507,14 +507,25 @@ class Program
         // Enkel loot-regel
         if (Rng.NextDouble() < 0.35)
         {
-            string item = "Minor Gem";
-            if (enemyName.Contains("Urdraken")) item = "Dragon Scale";
+            string itemName = "Minor Gem";
+            if (enemyName.Contains("Urdraken"))
+            {
+                itemName = "Dragon Scale";
+            }
 
+            Item item = new Item(itemName, "Loot");
+            
             var inv = (Player[10] ?? "").Trim();
-            if (string.IsNullOrEmpty(inv)) Player[10] = item;
-            else Player[10] = inv + ";" + item;
+            if (string.IsNullOrEmpty(inv))
+            {
+                Player[10] = item.Name;
+            }
+            else
+            {
+                Player[10] = inv + ";" + item.Name;
+            }
 
-            Console.WriteLine($"Föremål hittat: {item} (lagt i din väska)");
+            Console.WriteLine($"Föremål hittat: {item.Name} (lagt i din väska)");
         }
     }
 
@@ -531,12 +542,22 @@ class Program
         }
         else
         {
-            var items = new[] { "Iron Dagger", "Oak Staff", "Leather Vest", "Healing Herb" };
-            string found = items[Rng.Next(items.Length)];
+            var items = new List<Item> 
+            {
+                new Item("Iron Dagger", "Weapon"),
+                new Item("Oak Staff", "Weapon"),
+                new Item("Leather Vest", "Armor"),
+                new Item("Healing Herb", "Consumable")
+            };
+
+            Item found = items[Rng.Next(items.Count)];
+            
             var inv = (Player[10] ?? "").Trim();
-            Player[10] = string.IsNullOrEmpty(inv) ? found : (inv + ";" + found);
-            Console.WriteLine($"Du plockar upp: {found}");
+            Player[10] = string.IsNullOrEmpty(inv) ? found.Name : (inv + ";" + found.Name);
+
+            Console.WriteLine($"Du plockar upp: {found.Name}");
         }
+        
         return true;
     }
 
