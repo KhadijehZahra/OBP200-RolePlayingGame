@@ -8,6 +8,11 @@ public class Enemy
     public int Defense { get; private set; }
     public int XpReward { get; private set; }
     public int GoldReward { get; private set; }
+    
+    public virtual int GetAttack()
+    {
+        return Attack;
+    }
 
     public Enemy(string name, int hp, int attack, int defense, int xp, int gold)
     {
@@ -31,5 +36,19 @@ public class Enemy
     public bool IsDead()
     {
         return Hp <= 0;
+    }
+}
+
+
+public class Boss : Enemy
+{
+    public Boss(string name, int hp, int atk, int def, int xp, int gold)
+        : base(name, hp, atk, def, xp, gold)
+    {
+    }
+
+    public override int GetAttack()
+    {
+        return Attack + 3;
     }
 }

@@ -251,7 +251,7 @@ class Program
             if (enemy.IsDead()) break;
 
             // Fiendens tur
-            int enemyDamage = CalculateEnemyDamage(enemy.Attack);
+            int enemyDamage = CalculateEnemyDamage(enemy.GetAttack());
             ApplyDamageToPlayer(enemyDamage);
             Console.WriteLine($"{enemy.Name} anfaller och gör {enemyDamage} skada!");
         }
